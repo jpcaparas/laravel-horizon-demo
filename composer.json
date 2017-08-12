@@ -1,11 +1,12 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "jpcaparas/laravel-horizon-demo",
+    "description": "A demo on Laravel Horizon queue capabilities",
+    "keywords": ["horizon", "queues", "redis", "laravel"],
     "license": "MIT",
     "type": "project",
+    "author": "JP Caparas <jp@jpcaparas.com>",
     "require": {
-        "php": ">=7.0.0",
+        "php": "^7.1",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/horizon": "^0.1.0",
@@ -37,6 +38,7 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
