@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'queues', 'namespace' => 'Queues'], function() {
+    Route::get('fetch-star-wars-entity', 'FetchStarWarsEntityController')
+         ->name('queues.fetch-star-wars-entity');
+});
