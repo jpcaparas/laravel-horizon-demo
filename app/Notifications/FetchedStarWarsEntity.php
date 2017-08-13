@@ -49,12 +49,14 @@ class FetchedStarWarsEntity extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $response = json_encode($this->getEntity());
+        $entity = $this->getEntity();
 
         return (new MailMessage)
-                    ->line(sprintf('Info about Star Wars character: #%1$s.', json_encode($this->getEntity())))
-                    ->action('More details', url('/'))
-                    ->line(json_encode($response));
+                    ->line(sprintf(
+                        'Info about Star Wars entity [%1$s]', $entity['name'])
+                    )
+                    ->line(print_r($entity, true))
+                    ->action('More details', $entity['url']);
     }
 
     /**

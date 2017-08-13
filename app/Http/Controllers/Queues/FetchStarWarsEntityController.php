@@ -29,19 +29,22 @@ class FetchStarWarsEntityController extends Controller
             abort(Response::HTTP_BAD_REQUEST, 'User does not exist.');
         }
 
-        $randomNumber = random_int(1, 100);
+        $entityType = $request->query('entity') ?? 'people';
+        $entityId = random_int(1, 100);
         $repeat = $request->query('repeat') ?? 1;
 
         do {
-            dispatch(new FetchStarWarsEntity($randomNumber, 'people', $user));
+            dispatch(new FetchStarWarsEntity($entityId, $entityType, $user));
             $repeat--;
         } while ($repeat > 0);
 
         $message = sprintf(
-            'An info email has been dispatched to %1$s <%2$s> about Star Wars character #%3$s.',
+'An email has been dispatched to %1$s <%2$s> 
+about a Star Wars entity with the type [%3$s] and ID of [%4$s].',
             $user->name,
             $user->email,
-            $randomNumber
+            $entityType,
+            $entityId
         );
 
         return response($message, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
