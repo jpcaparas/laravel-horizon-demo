@@ -30,11 +30,10 @@ class FetchStarWarsEntityController extends Controller
         }
 
         $entityType = $request->query('entity') ?? 'people';
-        $entityId = random_int(1, 100);
         $repeat = $request->query('repeat') ?? 1;
 
         do {
-            dispatch(new FetchStarWarsEntity($entityId, $entityType, $user));
+            dispatch(new FetchStarWarsEntity($entityId = random_int(1, 100), $entityType, $user));
             $repeat--;
         } while ($repeat > 0);
 

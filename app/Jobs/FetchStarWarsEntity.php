@@ -72,7 +72,19 @@ class FetchStarWarsEntity implements ShouldQueue
          */
         $response = Zttp::withHeaders($headers)->get($url);
 
-        // Send email notification
+        if (empty($response) === true) {
+            $error = 'Failed to fetch Star Wars entity.';
+
+            \Log::error($error, [
+                'url' => $url,
+                'response' => $response->json(),
+                'status' => $response->status(),
+                'headers' => $response->headers(),
+            ]);
+
+            throw new \RuntimeException($error);
+        }
+
         $this->getUser()->notify(new FetchedStarWarsEntity($response->json()));
     }
 
