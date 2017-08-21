@@ -72,7 +72,7 @@ class FetchStarWarsEntity implements ShouldQueue
          */
         $response = Zttp::withHeaders($headers)->get($url);
 
-        if (empty($response) === true) {
+        if (empty($response) === true || 200 !== $response->status()) {
             $error = 'Failed to fetch Star Wars entity.';
 
             \Log::error($error, [
